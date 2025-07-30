@@ -13,7 +13,13 @@ services:
     volumes:
       - ${NUXT_DIRECTORY}:${NUXT_WORK_DIRECTORY}
     working_dir: ${NUXT_WORK_DIRECTORY}
-    command: sh -c "npm install && npm run dev"
+    command: >
+      sh -c "npm install &&
+      if [ \"$PROJECT_ENV\" = \"production\" ]; then
+        npm run build && npm run start;
+      else
+        npm run dev;
+      fi"
     depends_on:
       - express
 
@@ -35,7 +41,13 @@ services:
       EXPRESS_PORT: ${EXPRESS_PORT}
       JWT_SECRET: ${JWT_SECRET}
     working_dir: ${EXPRESS_WORK_DIRECTORY}
-    command: sh -c "npm install && npm run dev"
+    command: >
+      sh -c "npm install &&
+      if [ \"$PROJECT_ENV\" = \"production\" ]; then
+        npm run build && npm run start;
+      else
+        npm run dev;
+      fi"
     depends_on:
       - mysql
 
