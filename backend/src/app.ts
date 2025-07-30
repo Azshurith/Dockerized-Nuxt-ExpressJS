@@ -12,7 +12,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import routes from './routes'
-import { Database } from './config/database' // <- new TypeORM wrapper
+import { Database } from './config/database'
 
 dotenv.config()
 

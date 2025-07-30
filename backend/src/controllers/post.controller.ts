@@ -15,6 +15,15 @@ export const getAllPosts = async (_req: Request, res: Response): Promise<Respons
     const postRepo = Database.getDataSource().getRepository(Post);
     const posts = await postRepo.find({
         relations: ['user'],
+        select: {
+            id: true,
+            title: true,
+            content: true,
+            user: {
+                id: true,
+                username: true
+            }
+        },
         order: { id: 'DESC' }
     });
     return res.json(posts);
@@ -33,6 +42,15 @@ export const getPostById = async (req: Request, res: Response): Promise<Response
     const post = await postRepo.findOne({
         where: { id: Number(req.params.id) },
         relations: ['user'],
+        select: {
+            id: true,
+            title: true,
+            content: true,
+            user: {
+                id: true,
+                username: true
+            }
+        },
     });
 
     if (!post) return res.status(404).json({ error: 'Post not found' });
