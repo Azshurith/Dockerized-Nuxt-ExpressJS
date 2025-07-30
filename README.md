@@ -1,34 +1,33 @@
 # 🚀 MVC
 
-> Full-stack modular automation dashboard built on Nuxt and Express — structured with MVC, scalable by design.
+> Full-stack authentication and CRUD operation built on Nuxt and Express — structured with MVC, scalable by design.
 
-**DB2UI** is a feature-rich, fully Dockerized platform combining **Nuxt 3**, **ExpressJS**, **Vue**, and **MySQL** in an MVC-based architecture. It ships with **PhpMyAdmin** for database GUI access and **Redis** for caching and queuing support.
+Dockerized Nuxt ExpressJS is a robust automation platform powered by **Node.js**, **Express**, **NuxtJS**, and **MySQL**. It comes Docker-ready with **PhpMyAdmin** for database control and **Redis** support for caching, queuing, or session management.
 
 ---
 
 ## 🧰 Tech Stack
 
-| Layer         | Technology                            |
-|---------------|----------------------------------------|
-| **Frontend**  | Nuxt 3 (Vue 3, Composition API, SSR)   |
-| **Backend**   | ExpressJS (Node.js, TypeScript, MVC)   |
-| **Database**  | MySQL + PhpMyAdmin GUI                 |
-| **Cache**     | Redis                                  |
-| **Container** | Docker + Docker Compose                |
+| Layer         | Technology                                      |
+|---------------|--------------------------------------------------|
+| **Frontend**  | NuxtJS 3 (Vue 3, Vite, TailwindCSS, SSR optional)|
+| **Backend**   | Node.js, ExpressJS, TypeScript, TypeORM          |
+| **Database**  | MySQL + PhpMyAdmin GUI                           |
+| **Cache**     | Redis                                            |
+| **Container** | Docker + Docker Compose                          |
 
 ---
 
 ## 📦 Features
 
-- ✅ MVC structure for both Nuxt and Express
-- 🧠 Service-layer logic separation (controllers, routes, validators)
-- 📦 Modular API with TypeScript
-- ⚙️ Redis for session/caching support
-- 🔐 JWT-based authentication
-- 🖥️ Nuxt frontend with Vue 3 + Pinia ready
-- 🐘 MySQL + PhpMyAdmin GUI
-- 🐳 Docker-based setup with single-command orchestration
-- 💡 Easily extendable with jobs, services, middlewares
+- ✅ Modular API structure using Express + TypeScript (MVC)
+- 🖥️ NuxtJS frontend with Vue 3 + Pinia + TailwindCSS
+- 🐘 MySQL with PhpMyAdmin for admin GUI
+- 🔁 Redis-powered session/cache-ready setup
+- 🐳 Fully Dockerized: 1-command startup
+- 🔐 JWT Auth for secure endpoints
+- 🔌 TypeORM-based models with clean entity relationships
+- ⚙️ Easy to extend with service-based jobs
 
 ---
 
@@ -37,118 +36,100 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Azshurith/Dockerized-Nuxt-ExpressJS.git
+git clone https://github.com/Azshurith/DB2UI.git
 cd DB2UI
 ```
 
 ### 2. Create `.env` File
 
-Copy and customize the `.env`:
+Copy `.env.example` and configure ports, DB, JWT:
 
 ```bash
 cp .env.example .env
 ```
 
-### 3. Start Everything via Docker
+### 3. Start with Docker
 
 ```bash
 docker-compose up -d
 ```
 
-Services:
-
-- **Frontend**: `http://localhost:4000`
-- **Backend API**: `http://localhost:4001/api`
-- **PhpMyAdmin**: `http://localhost:4002`
-- **Redis**: `localhost:6379`
+Access:
+- Frontend: `http://localhost:4000`
+- Backend: `http://localhost:4001/api`
+- PhpMyAdmin: `http://localhost:4002`
+- Redis: `localhost:6379`
 
 ---
 
-## 🧠 Project Structure (MVC-Based)
+## 🗂️ Project Structure
 
 ```
-backend/                       # Express API (TypeScript)
-├── src/
-│   ├── routes/                # Express routes
-│   ├── controllers/           # Route logic / handlers
-│   ├── validators/            # Input validation rules
-│   ├── entities/              # TypeORM models
-│   ├── middlewares/          # JWT, validators, etc.
-│   └── config/                # DB, Redis, env loaders
-
-frontend/                      # Nuxt 3 frontend
-├── pages/                     # MVC views
-├── components/                # Reusable Vue components
-├── composables/              # Auth helpers, composables
-├── middleware/               # Route guards (auth/guest)
-└── utils/                    # Client-side helpers
-
-.docker/                      # Dockerfiles for each service
-.env                          # Environment variables
-docker-compose.yml            # Multi-container orchestrator
-Makefile                      # CLI for dev operations
+backend/                 # Express + TypeScript backend
+  ├── src/
+  │   ├── routes/
+  │   ├── controllers/
+  │   ├── middlewares/
+  │   ├── config/
+  │   └── entities/      # TypeORM entities (User, Post, etc.)
+frontend/                # NuxtJS frontend (src/pages, src/components, etc.)
+.docker/                 # Dockerfiles for each service
+.env                     # Environment variables
+docker-compose.yml       # Multi-container orchestrator
+Makefile                 # Project CLI with helper commands
 ```
 
 ---
 
-## 🛠️ CLI Helper Commands (via Makefile)
+## 🛠️ Makefile CLI Commands
 
-Use `make help` to view commands:
+Use `make help` to list all available commands:
 
-| Command            | Description                                 |
-|--------------------|---------------------------------------------|
-| `project_start`    | 🚀 Start all containers                     |
-| `project_stop`     | 🛑 Stop all containers                      |
-| `project_destroy`  | 💣 Remove containers & volumes              |
-| `express_shell`    | 🔧 Shell into Express container             |
-| `express_dev`      | 🛠️ Run backend in dev mode                 |
-| `nuxt_dev`         | 🛠️ Run frontend in dev mode                |
-| `nuxt_build`       | 🔧 Build frontend for production            |
-| `help`             | 📖 View command reference                   |
+| Command            | Description                                  |
+|--------------------|----------------------------------------------|
+| `project_start`    | 🚀 Start all containers in detached mode     |
+| `project_stop`     | 🛑 Stop all running containers               |
+| `project_restart`  | 🔄 Restart all containers                    |
+| `project_destroy`  | 💣 Remove containers and volumes             |
+| `express_shell`    | 🔧 Open a shell in Express container         |
+| `express_install`  | 📦 Install backend dependencies              |
+| `express_update`   | 🔄 Update backend packages                   |
+| `express_dev`      | 🛠️ Run Express in dev mode                  |
+| `express_start`    | ▶️ Run Express in production mode            |
+| `nuxt_shell`       | 🔧 Open a shell in Nuxt container            |
+| `nuxt_install`     | 📦 Install frontend dependencies             |
+| `nuxt_update`      | 🔄 Update frontend packages                  |
+| `nuxt_dev`         | 🛠️ Run Nuxt in dev mode                     |
+| `nuxt_build`       | 🔧 Build frontend for production             |
+| `help`             | 📖 Show this help menu                       |
 
 ---
 
 ## 🔐 Authentication
 
-JWT tokens are used for protecting backend routes.
-
-**Header Format:**
+JWT-based auth is built-in. Use:
 
 ```http
-Authorization: Bearer <your_token_here>
+Authorization: Bearer <token>
 ```
 
 ---
 
-## 🔁 Redis Usage
+## 🧠 Redis Use Cases
 
-- Session & login token storage
-- Caching for jobs / external API responses
-- Rate-limiting (future-ready)
+- Session & login state
+- API rate-limiting
+- Cache for scraped or job data
 
 ---
 
-## 🛠️ Building Frontend Without Docker
+## 🛠️ Build Frontend Manually
 
 ```bash
 cd frontend
 npm install
 npm run build
 ```
-
----
-
-## 💡 Windows + WSL Symlink (Optional)
-
-To access WSL project from Windows apps:
-
-```powershell
-New-Item -ItemType SymbolicLink `
-  -Path "D:\Documents\Projects" `
-  -Target "\\wsl.localhost\Ubuntu-24.04\home\user\Projects"
-```
-
-> ✅ Make sure the WSL target exists before running.
 
 ---
 
